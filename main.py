@@ -28,8 +28,8 @@ wr_article_content = rewriter.rewrite(og_article_content)
 audio_file_locations = speech.speak(wr_article_content)
 
 ## make the captions based off of the audio recording, it saves them to a file as well, returns captions file locations
-#captions_file_location = captions.caption(audio_file_locations)
-#
+captions_file_location = captions.caption(audio_file_locations)
+
 ## checks and ajusts the captions to make sure all of the words are accurate
 #checker.check(wr_article_file_location, captions_file_location)
 #
