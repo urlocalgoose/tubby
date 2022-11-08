@@ -1,0 +1,13 @@
+Stuff the Bot needs to do:
+
+Step 1, gather content:
+It needs to gather stories, news, reddit posts, and new science discoveries
+(for reddit posts it needs to grab screenshots as well)
+
+Step 2, Put all the text through a text to speach api and download the wave files
+
+Step 3, it needs to create captions and line them up at the proper times with premeire proper
+
+Step 4, assemble all the content including background footage, potential screenshots, auido voice over, and captions
+
+Step 5, send me the final video to make a thumnail for and to post
