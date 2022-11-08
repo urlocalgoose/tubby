@@ -24,13 +24,11 @@ og_article_content = scraper.scrape(article_link)
 # once again returns a dictionary, but with the rewritten contents
 wr_article_content = rewriter.rewrite(og_article_content)
 
-print(wr_article_content)
+## make the text to speech audio files of our content and save them, returns dict of where the audio files are
+audio_file_locations = speech.speak(wr_article_content)
 
-## make the text to speech audio files of our content and save them, returns list of where the audio files are
-#audio_file_location = speech.speak(wr_article_content)
-#
 ## make the captions based off of the audio recording, it saves them to a file as well, returns captions file locations
-#captions_file_location = captions.caption(audio_file_location)
+#captions_file_location = captions.caption(audio_file_locations)
 #
 ## checks and ajusts the captions to make sure all of the words are accurate
 #checker.check(wr_article_file_location, captions_file_location)
