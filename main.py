@@ -7,6 +7,7 @@ import speech
 import captions
 import checker
 import compiler
+import videoCaps
 
 # import foreign modules
 
@@ -24,14 +25,17 @@ og_article_content = scraper.scrape(article_link)
 # once again returns a dictionary, but with the rewritten contents
 wr_article_content = rewriter.rewrite(og_article_content)
 
-## make the text to speech audio files of our content and save them, returns dict of where the audio files are
+# make the text to speech audio files of our content and save them, returns dict of where the audio files are
 audio_file_locations = speech.speak(wr_article_content)
 
-## make the captions based off of the audio recording, it saves them to a file as well, returns captions file locations
-captions_file_location = captions.caption(audio_file_locations)
+# checks and ajusts the captions to make sure all of the words are accurate
+#checker.check(wr_article_file_location, json_caption_data)
 
-## checks and ajusts the captions to make sure all of the words are accurate
-#checker.check(wr_article_file_location, captions_file_location)
-#
-## compile all of the cool stuff we just made into one dope video
-#compiler.compile()
+# compile all of the cool stuff we just made into one dope video
+video_file_location = compiler.compile()
+
+# make the captions based off of the video, it saves them to a file as well, returns dictionary with json data of the captions
+json_caption_data = captions.caption(video_file_location)
+
+# creates the actauly final video based on the captions
+videoCaps.caption(json_caption_data)
