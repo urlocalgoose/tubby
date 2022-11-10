@@ -12,7 +12,7 @@ def caption(caption_data):
 
     #print(json_caption_data)
 
-    for segment in caption_data_parsed:
+    for segment in caption_data:
         print(segment["Content"])
         print(segment["Start"])
         print(segment["End"])
