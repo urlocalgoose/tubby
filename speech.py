@@ -1,3 +1,6 @@
+def utf8len(s):
+    return len(s.encode('utf-8'))
+
 def speak(article):
     
     import os
@@ -12,6 +15,8 @@ def speak(article):
     client = texttospeech.TextToSpeechClient()
 
     input_title = texttospeech.SynthesisInput(text=article["title"])
+    #if utf8len(article["body"]) > 5000:
+
     input_body = texttospeech.SynthesisInput(text=article["body"])
 
     # Note: the voice can also be specified by name.

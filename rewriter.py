@@ -20,7 +20,7 @@ def rewrite(og_article_content):
     # rewrite the body
     rw_body = openai.Completion.create(
   model="text-davinci-002",
-  prompt="rewrite the text below in the style of a youtube video\n"+ og_article_content["body"] +"",
+  prompt="edit the text below\n"+ og_article_content["body"] +"",
   temperature=1,
   max_tokens=2355,
   top_p=1,

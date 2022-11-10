@@ -13,9 +13,6 @@ def caption(caption_data):
     #print(json_caption_data)
 
     for segment in caption_data:
-        print(segment["Content"])
-        print(segment["Start"])
-        print(segment["End"])
 
         txt_clip = TextClip(segment["Content"], fontsize = 100, color='white', align='center', size=(3000, 500))
         txt_clip = txt_clip.set_start(segment["Start"])
