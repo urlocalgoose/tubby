@@ -8,6 +8,7 @@ import captions
 import checker
 import compiler
 import videoCaps
+import srtParser
 
 # import foreign modules
 
@@ -41,8 +42,10 @@ import videoCaps
 # make the captions based off of the video, it saves them to a file as well, returns dictionary with json data of the captions
 print("Getting speech to text data of video...")
 video_file_location = "hsdhsbhdbhsb"
-caption_data_location = captions.caption(video_file_location)
+caption_data_unparsed = captions.caption(video_file_location)
+
+caption_data_parsed = srtParser.pasre(caption_data_unparsed)
 
 # creates the actauly final video based on the captions
 print("Adding captions to video and rendering final product...")
-videoCaps.caption(caption_data_location)
+videoCaps.caption(caption_data_parsed)

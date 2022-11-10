@@ -1,11 +1,7 @@
 # Import everything needed to edit video clips 
 from moviepy.editor import *
 
-def caption(caption_data_location):
-
-    import pysrt
-
-    captions = pysrt.open(caption_data_location)
+def caption(caption_data):
 
     # loading video
     clip = VideoFileClip("./no_captions.mp4")
@@ -16,14 +12,14 @@ def caption(caption_data_location):
 
     #print(json_caption_data)
 
-    for segment in captions:
-        print(segment.text)
-        print(segment.start.seconds)
-        print(segment.end.seconds)
+    for segment in caption_data_parsed:
+        print(segment["Content"])
+        print(segment["Start"])
+        print(segment["End"])
 
-        txt_clip = TextClip(segment.text, fontsize = 100, color='white', align='center', size=(3000, 500))
-        txt_clip = txt_clip.set_start(segment.start.seconds)
-        duration = segment.end.seconds-segment.start.seconds
+        txt_clip = TextClip(segment["Content"], fontsize = 100, color='white', align='center', size=(3000, 500))
+        txt_clip = txt_clip.set_start(segment["Start"])
+        duration = segment["Duration"]
         txt_clip = txt_clip.set_duration(duration)
         text_clips.append(txt_clip)
         #print("APPENDED!")

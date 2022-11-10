@@ -41,4 +41,4 @@ def caption(video_file_location):
         f.write(captions)
 
     #return transcript_json
-    return './content/caption_data.srt'
+    return captions
