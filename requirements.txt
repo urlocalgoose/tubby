@@ -1,0 +1,4 @@
+moviepy==1.0.3
+openai==0.25.0
+protobuf==4.21.9
+rev_ai==2.17.1
