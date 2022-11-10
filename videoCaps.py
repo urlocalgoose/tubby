@@ -1,8 +1,11 @@
 # Import everything needed to edit video clips 
 from moviepy.editor import *
-import json
 
-def caption(json_caption_data):
+def caption(caption_data_location):
+
+    import pysrt
+
+    captions = pysrt.open(caption_data_location)
 
     # loading video
     clip = VideoFileClip("./no_captions.mp4")
@@ -13,33 +16,38 @@ def caption(json_caption_data):
 
     #print(json_caption_data)
 
-    for monologue in json_caption_data["monologues"]:
-        print(monologue["elements"])
-        for item in monologue["elements"]:
-            try:
-                print(item["value"])
-                txt_clip = TextClip(item["value"], fontsize = 200, color='white', align='center', size=(1000, 500))
-                txt_clip = txt_clip.set_start(item["ts"])
-                duration = item["end_ts"] - item["ts"]
-                txt_clip = txt_clip.set_duration(duration)
-                text_clips.append(txt_clip)
-                print("APPENDED!")
-            except Exception:
-                print("-----")
-        
+    for segment in captions:
+        print(segment.text)
+        print(segment.start.seconds)
+        print(segment.end.seconds)
 
-    # clipping of the video  
-    # getting video for only starting 10 seconds 
-    #clip = clip.subclip(0, 10)
+        txt_clip = TextClip(segment.text, fontsize = 100, color='white', align='center', size=(3000, 500))
+        txt_clip = txt_clip.set_start(segment.start.seconds)
+        duration = segment.end.seconds-segment.start.seconds
+        txt_clip = txt_clip.set_duration(duration)
+        text_clips.append(txt_clip)
+        #print("APPENDED!")
 
-    # Generate a text clip 
-    #txt_clip = TextClip("BOOBIES", fontsize = 75, color = 'black') 
+    segment_list=[]
 
-    # setting position of text in the center and duration will be 10 seconds 
-    #txt_clip = txt_clip.set_pos('center').set_duration(10) 
+    #for monologue in json_caption_data["monologues"]:
+    #    current_segment = {}
+
+    #for monologue in json_caption_data["monologues"]:
+    #    print(monologue["elements"])
+    #    for item in monologue["elements"]:
+    #        try:
+    #            print(item["value"])
+    #            txt_clip = TextClip(item["value"], fontsize = 200, color='white', align='center', size=(1000, 500))
+    #            txt_clip = txt_clip.set_start(item["ts"])
+    #            duration = item["end_ts"] - item["ts"]
+    #            txt_clip = txt_clip.set_duration(duration)
+    #            text_clips.append(txt_clip)
+    #            print("APPENDED!")
+    #        except Exception:
+    #            pass
 
     # Overlay the text clip on the first video clip 
-    print(text_clips)
     all_texts = CompositeVideoClip(text_clips)
     
     video = CompositeVideoClip([clip, all_texts.set_pos('center')])

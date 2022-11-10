@@ -41,8 +41,8 @@ import videoCaps
 # make the captions based off of the video, it saves them to a file as well, returns dictionary with json data of the captions
 print("Getting speech to text data of video...")
 video_file_location = "hsdhsbhdbhsb"
-json_caption_data = captions.caption(video_file_location)
+caption_data_location = captions.caption(video_file_location)
 
 # creates the actauly final video based on the captions
 print("Adding captions to video and rendering final product...")
-videoCaps.caption(json_caption_data)
+videoCaps.caption(caption_data_location)

@@ -33,10 +33,12 @@ def caption(video_file_location):
         time.sleep(1)
     # retrieve transcript as JSON
     transcript_json = client.get_transcript_json(job.id)
+    captions = client.get_captions(job.id)
     # delete the transcript from api server cause its not needed anymore
     client.delete_job(job.id)
         
-    with open('./content/caption_data.dat', 'wb') as f:
-        pickle.dump(transcript_json, f)
+    with open('./content/caption_data.srt', 'w') as f:
+        f.write(captions)
 
-    return transcript_json
+    #return transcript_json
+    return './content/caption_data.srt'
