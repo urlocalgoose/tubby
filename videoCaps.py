@@ -4,35 +4,33 @@ import json
 
 def caption(json_caption_data):
 
-    print(json_caption_data)
-    print(type(json_caption_data))
-
     # loading video
-    clip = VideoFileClip("./no_captions_audio.mp3") 
+    clip = VideoFileClip("./no_captions.mp4")
 
     #jason_data = json.dumps(json_caption_data)
 
     text_clips = []
 
-    for item in json_caption_data["monologues"][0]["elements"]:
-        print(item)
-        try:
-            txt_clip = TextClip(item["value"],fontsize = 80, color='black', width = 280)
-            txt_clip = txt_clip.set_start(item["ts"])
-            duration = item["end_ts"] - item["ts"]
-            txt_clip = txt_clip.set_duration(duration)
-            text_clips.append(txt_clip)
-            print(text_clips)
-        except Exception:
-            print(Exception)
+    #print(json_caption_data)
+
+    for monologue in json_caption_data["monologues"]:
+        print(monologue["elements"])
+        for item in monologue["elements"]:
+            try:
+                print(item["value"])
+                txt_clip = TextClip(item["value"], fontsize = 200, color='white', align='center', size=(1000, 500))
+                txt_clip = txt_clip.set_start(item["ts"])
+                duration = item["end_ts"] - item["ts"]
+                txt_clip = txt_clip.set_duration(duration)
+                text_clips.append(txt_clip)
+                print("APPENDED!")
+            except Exception:
+                print("-----")
         
 
     # clipping of the video  
     # getting video for only starting 10 seconds 
-    clip = clip.subclip(0, 10)
-
-    # Reduce the audio volume (volume x 0.8) 
-    clip = clip.volumex(0.8) 
+    #clip = clip.subclip(0, 10)
 
     # Generate a text clip 
     #txt_clip = TextClip("BOOBIES", fontsize = 75, color = 'black') 
@@ -40,14 +38,13 @@ def caption(json_caption_data):
     # setting position of text in the center and duration will be 10 seconds 
     #txt_clip = txt_clip.set_pos('center').set_duration(10) 
 
-    print(text_clips)
-
     # Overlay the text clip on the first video clip 
+    print(text_clips)
     all_texts = CompositeVideoClip(text_clips)
     
     video = CompositeVideoClip([clip, all_texts.set_pos('center')])
     
-    video.write_videofile("sadsad.mp4")
+    video.write_videofile("final.mp4")
     
 #caption({"monologues": [
 #    {"speaker": 0, "elements": [
