@@ -1,5 +1,1 @@
-./video
-./content
-./audio
-./no_captions_audio.mp3
-./no_captions.mp4
+/__pycache__
