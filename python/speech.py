@@ -3,11 +3,12 @@ def utf8len(s):
 
 def speak(article):
     
-    """Synthesizes speech from the input string of text."""
+    # imports
     from google.cloud import texttospeech
-    from dotenv import load_dotenv
     import os
-    load_dotenv()
+    import spliter
+
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')
@@ -21,31 +22,41 @@ def speak(article):
     FINAL_VIDEO = os.getenv('FINAL_VIDEO')
     CAPTION_DATA = os.getenv('CAPTION_DATA')
 
+
+    # spilt text into a lenght less than 5000 bytes and but it snaps to the nearest period
+    title = article["title"]
+    full_body = article["body"]
+
+    split_text = spliter.split(full_body)
+
+    # initialize client
     client = texttospeech.TextToSpeechClient()
 
-    input_title = texttospeech.SynthesisInput(text=article["title"])
-    #if utf8len(article["body"]) > 5000:
+    # create title object
+    input_title = texttospeech.SynthesisInput(text=title)
 
-    input_body = texttospeech.SynthesisInput(text=article["body"])
-
-    # Note: the voice can also be specified by name.
-    # Names of voices can be retrieved with client.list_voices().
+    # Settings and configs for the voice
     voice = texttospeech.VoiceSelectionParams(
         language_code="en-US",
         name="en-US-Neural2-E",
     )
-
     audio_config = texttospeech.AudioConfig(pitch=0.00, 
         audio_encoding=texttospeech.AudioEncoding.MP3
     )
 
+    # send title to get speech
     response_title = client.synthesize_speech(
         request={"input": input_title, "voice": voice, "audio_config": audio_config}
     )
     
-    response_body = client.synthesize_speech(
-        request={"input": input_body, "voice": voice, "audio_config": audio_config}
-    )
+    # send body to get speech
+    audio_segments = []
+    for item in split_text:
+        item = texttospeech.SynthesisInput(text=item)
+        response_body = client.synthesize_speech(
+            request={"input": item, "voice": voice, "audio_config": audio_config}
+        )
+        audio_segments.append(response_body)
 
     # The response's audio_content is binary.
     with open(TITLE_AUDIO_LOC, "wb") as out:
@@ -53,6 +64,13 @@ def speak(article):
         print('Audio content written to file: ' + TITLE_AUDIO_LOC)
         
     # The response's audio_content is binary.
-    with open(BODY_AUDIO_LOC, "wb") as out:
-        out.write(response_body.audio_content)
-        print('Audio content written to file: ' + BODY_AUDIO_LOC)
+    i = 0
+    titles = []
+    for item in audio_segments:
+        title = "./audio/body_" + str(i) + ".mp3"
+        titles.append(title)
+        with open(title, "wb") as out:
+            out.write(item.audio_content)
+            print('Audio content written to file: ' + BODY_AUDIO_LOC)
+        i = i+1
+    return titles

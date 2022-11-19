@@ -2,9 +2,9 @@
 from moviepy.editor import *
 
 def caption(caption_data):
-    from dotenv import load_dotenv
+
     import os
-    load_dotenv()
+
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')
@@ -27,7 +27,7 @@ def caption(caption_data):
 
     for segment in caption_data:
 
-        txt_clip = TextClip(segment["Content"], fontsize = 100, color='white', align='center', size=(3000, 500))
+        txt_clip = TextClip(segment["Content"], fontsize = 100, color='white', align='center', size=(3000, 500), stroke_color='black', stroke_width=0)
         txt_clip = txt_clip.set_start(segment["Start"])
         duration = segment["Duration"]
         txt_clip = txt_clip.set_duration(duration)

@@ -1,7 +1,9 @@
 def pasre(srt_data):
-    from dotenv import load_dotenv
+
+    # imports
     import os
-    load_dotenv()
+
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')
@@ -15,6 +17,7 @@ def pasre(srt_data):
     FINAL_VIDEO = os.getenv('FINAL_VIDEO')
     CAPTION_DATA = os.getenv('CAPTION_DATA')
 
+    
     srt_data = srt_data.split("\n\n")
     finished_segments = []
     for segment in srt_data:

@@ -1,5 +1,6 @@
 # Things I want to do
 
+- Add splitter to text to speech so I can have longer strings
 - Improve caption font and size and outline
 - add background video variation and randomization
 
@@ -7,3 +8,11 @@
 
 - topic regenition
 - image searched based on topic
+
+# Do some image recon
+
+- get 100 most used words, english
+- take zem out the article
+- devide left over words between nouns and verbs
+- count them each
+- use top 5 nouns as search terms

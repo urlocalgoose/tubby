@@ -1,9 +1,9 @@
 def check(json_caption_data):
     
     import pickle
-    from dotenv import load_dotenv
     import os
-    load_dotenv()
+    
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')

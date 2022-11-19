@@ -3,13 +3,12 @@ def caption():
     # imports
     from rev_ai import apiclient
     import time
-    import pickle
-    from dotenv import load_dotenv
     import os
 
     # configs and stuff
     token = "02SWtG8u58xDydJP1F2xW8HbsVANF2JcC9d55DidBkN-1uhlKGxZTDm-bm2QikZ-RT43O_TImRg3ZZV8SdINKy4hBe1TM"
-    load_dotenv()
+
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')

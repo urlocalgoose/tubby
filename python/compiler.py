@@ -1,10 +1,10 @@
 from moviepy.editor import *
 
-def compile():
+def compile(audio_locs):
     import pickle
-    from dotenv import load_dotenv
     import os
-    load_dotenv()
+
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')
@@ -28,15 +28,22 @@ def compile():
     bg_gameplay_clip = VideoFileClip(BACKGROUND_RETRO_CLIP_LOC)
     bg_music_clip = AudioFileClip(BACKGROUND_MUSIC_LOC)
     title_clip = AudioFileClip(TITLE_AUDIO_LOC)
-    body_clip = AudioFileClip(BODY_AUDIO_LOC)
+    
     silence_clip = AudioFileClip(SILENCE_AUDIO_LOC)
 
     # The plan:
     # layer 1: silence + title + silence + body
     # layer 2: background music overlaying the background video
 
+    audio_locs
+    all_audios = []
+    for loc in audio_locs:
+        all_audios.append(AudioFileClip(loc))
+    
+    all_together_now = concatenate_audioclips(all_audios)
+
     # layer 1
-    layer_one_composite = concatenate_audioclips([silence_clip, title_clip, silence_clip.subclip(0, 1), body_clip])
+    layer_one_composite = concatenate_audioclips([silence_clip, title_clip, silence_clip.subclip(0, 1), all_together_now])
 
     audio_duration = layer_one_composite.duration + 10
 

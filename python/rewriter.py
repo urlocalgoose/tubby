@@ -2,9 +2,9 @@ def rewrite(og_article_content):
     import openai
     import os
     import pickle
-    from dotenv import load_dotenv
     import os
-    load_dotenv()
+
+    # load env vars
     GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     BACKGROUND_RETRO_CLIP_LOC = os.getenv('BACKGROUND_RETRO_CLIP_LOC')
     BACKGROUND_MUSIC_LOC = os.getenv('BACKGROUND_MUSIC_LOC')
@@ -34,13 +34,13 @@ def rewrite(og_article_content):
 
     # rewrite the body
     rw_body = openai.Completion.create(
-  model="text-davinci-002",
-  prompt="rewrite the text below in 50 words\n"+ og_article_content["body"] +"",
-  temperature=1,
-  max_tokens=2355,
-  top_p=1,
-  frequency_penalty=0.2,
-  presence_penalty=0
+      model="text-davinci-002",
+      prompt="rewrite the text below in the style of a youtube video\n"+ og_article_content["body"] + "",
+      temperature=1,
+      max_tokens=2355,
+      top_p=1,
+      frequency_penalty=0.2,
+      presence_penalty=0
     )
     body_response = dict(rw_body)
     openai_response = body_response['choices']
