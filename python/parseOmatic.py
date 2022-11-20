@@ -41,7 +41,26 @@ def weightLoss(wr_content):
         amount = skinny_string.count(word)
         the_count[word] = amount
 
-    # print  all words with more than n occurances
-    for count in the_count:
-        if the_count[count] > 2:
-            print(count + ", " + str(the_count[count]))
+    # print all words with more than n occurances
+    exclusive_words = []
+    for word in the_count:
+        if the_count[word] >= 3:
+            exclusive_words.append(word)
+            #print(word + ", " + str(the_count[word]))
+
+    for word in exclusive_words:
+
+        matched_indexes = []
+        i = 0
+        length = len(string)
+
+        while i < length:
+            if word == string[i]:
+                #matched_indexes.append(i)
+                try:
+                    matched_indexes.append(string[i-1] + " " + string[i] + " " + string[i+1])
+                except:
+                    pass
+            i += 1
+
+        print(matched_indexes)
